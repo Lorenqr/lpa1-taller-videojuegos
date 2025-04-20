@@ -3,16 +3,20 @@ import math
 import constants
 
 class Character():
-    def __init__(self, x, y, mob_animations, char_type):
+    def __init__(self, x, y, health, mob_animations, char_type):
         self.char_type = char_type
+        self.score = 0
         self.flip = False
         self.animation_list = mob_animations[char_type]
         self.frame_index = 0
         self.action = 0
         self.update_time = pygame.time.get_ticks()
         self.running = False
+        self.health = health
+        self.alive = True
+
         self.image = self.animation_list[self.action][self.frame_index]
-        self.rect = pygame.Rect(0, 0, 40, 40)
+        self.rect = pygame.Rect(0, 0, constants.TILE_SIZE, constants.TILE_SIZE)
         self.rect.center = (x, y)
 
     def move(self, dx, dy):
@@ -32,6 +36,11 @@ class Character():
         self.rect.y += dy
 
     def update(self):
+        #validacion de vida de enemigo
+        if self.health <= 0:
+            self.health = 0
+            self.alive = False
+
         if self.running == True:
             self.update_action(1)
         else:
@@ -52,6 +61,7 @@ class Character():
             self.frame_index = 0
             self.update_time = pygame.time.get_ticks()
 
+    
     def draw(self, surface):
         flipped_image = pygame.transform.flip(self.image, self.flip, False)
         surface.blit(flipped_image, self.rect)
