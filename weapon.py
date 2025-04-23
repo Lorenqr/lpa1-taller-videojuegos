@@ -48,12 +48,17 @@ class Arrow(pygame.sprite.Sprite):
         self.dx = math.cos(math.radians(self.angle)) * constants.ARROW_SPEED
         self.dy = -(math.sin(math.radians(self.angle)) * constants.ARROW_SPEED)
 
-    def update(self, enemy_list):
+    def update(self, screen_scroll, obstacle_tiles, enemy_list):
         #reset variables
         damage = 0
         damage_pos = None
-        self.rect.x += self.dx
-        self.rect.y += self.dy
+
+        self.rect.x += screen_scroll[0] + self.dx
+        self.rect.y += screen_scroll[1] + self.dy
+
+        for obstacle  in obstacle_tiles:
+            if obstacle[1].colliderect(self.rect):
+                self.kill()
         
         if self.rect.right < 0 or self.rect.left > constants.SCREEN_WIDTH or self.rect.bottom < 0 or self.rect.top > constants.SCREEN_HEIGHT:
             self.kill()
@@ -63,11 +68,43 @@ class Arrow(pygame.sprite.Sprite):
                 damage = 10 + random.randint(-5, 5)
                 damage_pos = enemy.rect
                 enemy.health -= damage
+                enemy.hit = True
                 self.kill()
                 break
         return damage, damage_pos
 
     #vida de enemigo
+
+    def draw(self, surface):
+        surface.blit(self.image, ((self.rect.centerx - int(self.image.get_width()/2)), self.rect.centery - int(self.image.get_height()/2)))
+##fireboll
+class Fireball(pygame.sprite.Sprite):
+    def __init__(self, image, x, y, target_x, target_y):
+        pygame.sprite.Sprite.__init__(self)
+        self.original_image = image
+        x_dist = target_x - x
+        y_dist = -(target_y - y)
+        self.angle = math.degrees(math.atan2(y_dist, x_dist))
+        self.image = pygame.transform.rotate(self.original_image, self.angle - 90)
+        self.rect = self.image.get_rect()
+        self.rect.center = (x ,y)
+
+        self.dx = math.cos(math.radians(self.angle)) * constants.FIREBALL_SPEED
+        self.dy = -(math.sin(math.radians(self.angle)) * constants.FIREBALL_SPEED)
+
+    def update(self, screen_scroll, player):
+  
+        self.rect.x += screen_scroll[0] + self.dx
+        self.rect.y += screen_scroll[1] + self.dy
+
+        if self.rect.right < 0 or self.rect.left > constants.SCREEN_WIDTH or self.rect.bottom < 0 or self.rect.top > constants.SCREEN_HEIGHT:
+            self.kill()
+        
+        if player.rect.colliderect(self.rect) and player.hit == False:
+            player.hit = True
+            player.last_hit = pygame.time.get_ticks()
+            player.health -=20
+            self.kill()
 
     def draw(self, surface):
         surface.blit(self.image, ((self.rect.centerx - int(self.image.get_width()/2)), self.rect.centery - int(self.image.get_height()/2)))
