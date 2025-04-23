@@ -7,7 +7,8 @@
 
 ## Autor
 
-- [@estudiante](https://www.github.com/estudiante)
+- [@Lorena Quiñones](https://github.com/Lorenqr/lpa1-taller-videojuegos.git)
+- [@Derik Hurtado]()
 
 ## Descripción del Proyecto
 
