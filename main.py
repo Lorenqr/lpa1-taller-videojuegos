@@ -13,7 +13,7 @@ pygame.display.set_caption("Game Uniregminton")
 
 clock = pygame.time.Clock()
 #crear niveles
-level = 2
+level = 1
 start_intro = False
 screen_scroll = [0, 0]
 
