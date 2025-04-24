@@ -108,6 +108,16 @@ El proyecto se dividirá en varias fases, comenzando con la creación de clases 
 
 ![Diagrama de Clases](./docs/diagramas.png)
 
+## Descripcion de jugabilidad personaje
+
+Teclas para movimientos del jugador
+A = izquierda, D = Derecha, W = Arriba, S = Abajo
+
+Disparo huesitos(Clic izquierdo)
+
+Poción roja(Subi nivel de la vida)
+
+
 ## Instalación
 
 1. Clonar el proyecto
