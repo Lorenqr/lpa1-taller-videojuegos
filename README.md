@@ -106,7 +106,7 @@ El proyecto se dividirá en varias fases, comenzando con la creación de clases 
 
 ## Diseño
 
-![Diagrama de Clases](./docs/diagramas.png)
+![Diagrama de Clases](/docs/DIAGRAMA UML VIDEOJUEGO.PDF)
 
 ## Descripcion de jugabilidad personaje
 
@@ -123,21 +123,15 @@ Poción roja(Subi nivel de la vida)
 1. Clonar el proyecto
 
 ```bash
-git clone https://github.com/UR-CC/lpa1-taller-videojuegos.git
+git clone https://github.com/Lorenqr/lpa1-taller-videojuegos.git
 cd lpa1-taller-videojuegos
+git checkout develop
 ```
 
-2. Crear y activar entorno virtual
+2. Instalar librerías y dependencias
 
 ```bash
-python -m venv venv
-venv/bin/activate
-```
-
-3. Instalar librerías y dependencias
-
-```bash
-pip install -r requirements.txt
+pip install pgzero
 ```
     
 ## Ejecución
@@ -146,6 +140,6 @@ pip install -r requirements.txt
 
 ```bash
 cd lpa1-taller-videojuegos
-python main.py
+pgzrun main.py
 ```
 
